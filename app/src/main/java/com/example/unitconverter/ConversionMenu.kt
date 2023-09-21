@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.toSize
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversionMenu(list: List<Converter>, modifier: Modifier = Modifier) {
+fun ConversionMenu(list: List<Converter>, modifier: Modifier = Modifier, convert: (converter: Converter) -> Unit) {
     var displayingText by remember { mutableStateOf("Select the conversion type") }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
@@ -59,11 +59,22 @@ fun ConversionMenu(list: List<Converter>, modifier: Modifier = Modifier) {
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
-        ) {
+        )
+        {
             list.forEach { conversion ->
-                Text(text = conversion.description, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                DropdownMenuItem(text = {
+                    Text(
+                        text = conversion.description,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }, onClick = {
+                    displayingText = conversion.description
+                    expanded = false
+                    convert(conversion)
+                })
             }
-
         }
+
     }
 }
