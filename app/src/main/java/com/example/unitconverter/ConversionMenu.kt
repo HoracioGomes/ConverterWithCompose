@@ -47,7 +47,7 @@ fun ConversionMenu(list: List<Converter>, modifier: Modifier = Modifier, convert
             textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
             modifier = modifier
                 .fillMaxWidth()
-                .onGloballyPositioned { cordinates -> textFieldSize = cordinates.size.toSize() },
+                .onGloballyPositioned { cordinates -> textFieldSize =  cordinates.size.toSize() },
             label = { Text(text = "Conversion type") },
             trailingIcon = {
                 Icon(icon, contentDescription = "Icon", modifier.clickable { expanded = !expanded })
